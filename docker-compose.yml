@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  backend:
+    container_name: c_nodeapp
+    image: ritiksingla/nodeapp:2.0
+    build:
+      context: .
+      dockerfile: node.dockerfile
+      args:
+        NODE_VERSION: 16.14.0
+    env_file:
+      - src/config.env
+    ports:
+      - "5000:5000"
+    networks:
+      - nodeapp-network
+    volumes:
+      - ${PWD}/src:/app/src
+networks:
+  nodeapp-network:
+    driver: bridge
